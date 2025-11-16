@@ -1,26 +1,33 @@
-import { useState } from 'react'
+import { useRef } from 'react'
+import Hero from './components/Hero'
+import WhatIs from './components/WhatIs'
+import Modes from './components/Modes'
+import HowItWorks from './components/HowItWorks'
+import SocialProof from './components/SocialProof'
+import FomoCta from './components/FomoCta'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const ctaRef = useRef(null)
+
+  const handleCTAClick = () => {
+    ctaRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
-        </div>
+    <div className="min-h-screen bg-black text-white font-[Manrope]">
+      <Hero onCTAClick={handleCTAClick} />
+      <WhatIs />
+      <Modes />
+      <HowItWorks />
+      <SocialProof />
+
+      <div ref={ctaRef}>
+        <FomoCta onCTAClick={() => alert('Thanks! We will notify you for Early Access.')} />
       </div>
+
+      <footer className="bg-black border-t border-white/10 py-10 text-center text-xs text-gray-400">
+        © {new Date().getFullYear()} FistMode. Discipline over motivation.
+      </footer>
     </div>
   )
 }
